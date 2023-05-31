@@ -4,19 +4,17 @@ phases:
   install:
     runtime-versions:
       python: 3.11
-        
+
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 919321388667.dkr.ecr.us-east-1.amazonaws.com
+      - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/d8g4e3l5
   build:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - docker build -t tar_project .
+      - docker build -t newdemo .
       - echo Pushing the Docker image to ECR...
-      - docker push 919321388667.dkr.ecr.us-east-1.amazonaws.com/tar_project:latest
-  post_build:
+      - docker push public.ecr.aws/d8g4e3l5/newdemo:latest
     commands:
       - echo Build completed on `date`
-
